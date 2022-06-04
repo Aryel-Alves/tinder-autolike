@@ -1,18 +1,15 @@
 
 function hasBlacklistKeywords(bio) {
 	const blacklist = [
-		'ladyboy',
-		'banci',
+		'trans',
+		'litrão',
 		'bencong',
 		'lady boy',
 		'not a lady',
 		'not lady',
 		'not a girl',
 		'not girl',
-		'trans',
 		'shemale',
-		'chubby',
-		//' lb ',
 	];
 
 	for (item of blacklist) {
@@ -27,7 +24,7 @@ function hasBlacklistKeywords(bio) {
 
 function hasValidProfile() {
 	try {
-		const bioContainer = document.querySelector('.profileCard .profileContent .profileCard__card .BreakWord');
+		const bioContainer = document.querySelector(`[data-testid="info-bio"]`);
 		if (!bioContainer) return true;
 		const bio = bioContainer.textContent;
 		console.log(bio);
@@ -53,24 +50,20 @@ function pause(milliseconds) {
 	while ((new Date()) - dt <= milliseconds) { /* Do nothing */ }
 }
 
-function trickTinder() {
-	const infoClassName = 'focus-button-style';
-	const nbButtons = document.getElementsByClassName("button").length;
-	const buttons = document.getElementsByClassName("button")
-
-	const dislike = nbButtons === 5 ? buttons[1] : buttons[0];
-	const like = nbButtons === 5 ? buttons[3] : buttons[2];
+function trickTinder() {  
+	const likeButton = document.querySelector(`[data-testid="gamepadLike"]`);
+	const dislikeButton = document.querySelector(`[data-testid="gamepadDislike"]`);
 
 	// Open profile bio
-	const info = document.getElementsByClassName(infoClassName)[0];
-	if (info) {
-		info.click();
+	const infoButton = document.querySelector(`[data-testid="recCard__footer"]`)?.querySelector("button");
+	if (infoButton) {
+		infoButton.click();
 	}
 	pause(600);
 
 	// Like or deslike depending on validation
 	if (hasValidProfile()) {
-		like.click();
+		likeButton.click();
 
 		const thereIsMatch = isMatch();
 		if (thereIsMatch) {
@@ -78,7 +71,7 @@ function trickTinder() {
 			thereIsMatch.click();
 		}
 	} else {
-		dislike.click();
+		dislikeButton.click();
 	}
 
 	// If reached max likes per day then show modal and get it's content...
