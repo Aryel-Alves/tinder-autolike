@@ -2,8 +2,17 @@
 function hasBlacklistKeywords(bio) {
 	const blacklist = [
 		'trans',
+		'Tgirl',
+		'travesti',
 		'litrão',
+		'sigilo',
+		'cdzinha',
+		'pix',
+		'body positivity',
+		'sou mãe',
 		'bencong',
+		'f1',
+		'gay',
 		'lady boy',
 		'not a lady',
 		'not lady',
@@ -14,7 +23,7 @@ function hasBlacklistKeywords(bio) {
 
 	for (item of blacklist) {
 		if (bio.toLowerCase().indexOf(item) !== -1) {
-			console.log('skipping profile, matched blacklist keyword ' + item);
+			console.warn(`*** Skipping profile, matched blacklist keyword ${item} ***`);
 			return true;
 		}
 	}
@@ -24,15 +33,48 @@ function hasBlacklistKeywords(bio) {
 
 function hasValidProfile() {
 	try {
-		const bioContainer = document.querySelector(`[data-testid="info-bio"]`);
-		if (!bioContainer) return true;
-		const bio = bioContainer.textContent;
-		console.log(bio);
-		return !hasBlacklistKeywords(bio);
+
+		return hasValidBiografy() && hasValidGender();
 	} catch (e) {
 		// console.log(e);
 		return true; // possible empty bio
 	}
+}
+
+function hasValidGender(){
+	const genderContainer = document.querySelector("#t1836739397 > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > div > main > div > div > div.Pos\\(r\\)--ml.Z\\(1\\).Bgc\\(\\#fff\\).Ov\\(h\\).Expand.profileContent.Bdrs\\(8px\\)--ml.Bxsh\\(\\$bxsh-card\\)--ml > div > div.Bgc\\(\\#fff\\).Fxg\\(1\\).Z\\(1\\).Pb\\(100px\\) > div.D\\(f\\).Jc\\(sb\\).Us\\(n\\).Px\\(16px\\).Py\\(10px\\) > div > div.Fz\\(\\$ms\\) > div:nth-child(1) > div.Us\\(t\\).Va\\(m\\).D\\(ib\\).My\\(2px\\).NetWidth\\(100\\%\\,20px\\).C\\(\\$c-secondary\\)")
+		
+	if (!genderContainer){
+		const LIKE_PROFILES_WITHOUT_GENDER = true
+		//console.log(`PERFIL SEM BIO ${LIKE_PROFILES_WITHOUT_BIO ? "LIKE": "DISLIKE"}`)
+		return LIKE_PROFILES_WITHOUT_GENDER;
+	} 
+	const gender = genderContainer.text 
+
+	return !hasBlacklistKeywords(gender)
+}
+
+function hasValidBiografy(){
+	const bioContainer = document.querySelector("#t1836739397 > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > div > main > div > div > div.Pos\\(r\\)--ml.Z\\(1\\).Bgc\\(\\#fff\\).Ov\\(h\\).Expand.profileContent.Bdrs\\(8px\\)--ml.Bxsh\\(\\$bxsh-card\\)--ml > div > div.Bgc\\(\\#fff\\).Fxg\\(1\\).Z\\(1\\).Pb\\(100px\\) > div.P\\(16px\\).Us\\(t\\).C\\(\\$c-secondary\\).BreakWord.Whs\\(pl\\).Fz\\(\\$ms\\) > div");
+		
+	if (!bioContainer){
+		const LIKE_PROFILES_WITHOUT_BIO = true
+		//console.log(`PERFIL SEM BIO ${LIKE_PROFILES_WITHOUT_BIO ? "LIKE": "DISLIKE"}`)
+		return LIKE_PROFILES_WITHOUT_BIO;
+	} 
+	const bio = bioContainer.textContent;
+	openInstagramFromBio(bio);
+
+	return !hasBlacklistKeywords(bio)
+}
+
+function openInstagramFromBio(biografy){
+	const Reg = /[@].*/gm
+	const matchList = Reg.exec(biografy) 
+	if(matchList.length){
+		const links = matchList.map( item => `https://www.instagram.com/${item.substring(1)}`)
+		links.forEach(link=> console.log(link))
+	} 
 }
 
 function checkTinder() {
@@ -51,11 +93,9 @@ function pause(milliseconds) {
 }
 
 function trickTinder() {  
-	const likeButton = document.querySelector(`[data-testid="gamepadLike"]`);
-	const dislikeButton = document.querySelector(`[data-testid="gamepadDislike"]`);
-
 	// Open profile bio
-	const infoButton = document.querySelector(`[data-testid="recCard__footer"]`)?.querySelector("button");
+	
+	const infoButton = document.querySelector("#c464932099 > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > div > main > div > div > div > div > div.Toa\\(n\\).Bdbw\\(--recs-gamepad-height\\).Bdbc\\(t\\).Bdbs\\(s\\).Bgc\\(\\#000\\).Wc\\(\\$transform\\).Prs\\(1000px\\).Bfv\\(h\\).Ov\\(h\\).W\\(100\\%\\).StretchedBox.Bdrs\\(8px\\) > div.Pos\\(a\\).D\\(f\\).Jc\\(sb\\).C\\(\\#fff\\).Ta\\(start\\).W\\(100\\%\\).Ai\\(fe\\).B\\(0\\).P\\(8px\\)--xs.P\\(16px\\).P\\(20px\\)--l.Cur\\(p\\).focus-button-style > button");
 	if (infoButton) {
 		infoButton.click();
 	}
@@ -63,14 +103,23 @@ function trickTinder() {
 
 	// Like or deslike depending on validation
 	if (hasValidProfile()) {
-		likeButton.click();
+		try{ 
+			const likeButton = document.querySelector("#c464932099 > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > div > main > div > div > div.Pos\\(f\\).W\\(100\\%\\).B\\(0\\).Z\\(1\\).Pe\\(n\\).Pos\\(a\\)--ml.Bdrsbend\\(8px\\)--ml.Bdrsbstart\\(8px\\)--ml.Bg\\(\\$transparent-white-gradient\\) > div > div > div:nth-child(4) > button");
+			likeButton.click();
+		} catch(er){
+
+			console.log(er, "Erro ao dar like")
+		}
+
 
 		const thereIsMatch = isMatch();
 		if (thereIsMatch) {
 			console.log('------------- IT\'S A MATCH ! -------------');
+			
 			thereIsMatch.click();
 		}
 	} else {
+		const dislikeButton = document.querySelector("#t1836739397 > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > div > main > div > div > div.Pos\\(f\\).W\\(100\\%\\).B\\(0\\).Z\\(1\\).Pe\\(n\\).Pos\\(a\\)--ml.Bdrsbend\\(8px\\)--ml.Bdrsbstart\\(8px\\)--ml.Bg\\(\\$transparent-white-gradient\\) > div > div > div:nth-child(2) > button");
 		dislikeButton.click();
 	}
 
@@ -87,14 +136,6 @@ function trickTinder() {
 
 		return seconds * 1000;
 	}
-}
-
-function checkOkCupid() {
-	return window.location.href.startsWith("https://www.okcupid.com/doubletake");
-}
-function trickOkCupid() {
-	// Press the like button
-	document.getElementsByClassName('cardactions-action--like')[0].click();
 }
 
 // There is a lot more fun that can be achieved
@@ -121,8 +162,6 @@ function getRandomPeriod() {
 				console.log('Too many likes for now, have to wait: ' + delay + ' ms');
 				randomPeriod = delay;
 			}
-		} else if (checkOkCupid()) {
-			trickOkCupid();
 		}
 
 		if (!randomPeriod) {
