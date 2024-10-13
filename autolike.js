@@ -104,7 +104,7 @@ function trickTinder() {
 	// Like or deslike depending on validation
 	if (hasValidProfile()) {
 		try{ 
-			const likeButton = document.querySelector("#c464932099 > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > div > main > div > div > div.Pos\\(f\\).W\\(100\\%\\).B\\(0\\).Z\\(1\\).Pe\\(n\\).Pos\\(a\\)--ml.Bdrsbend\\(8px\\)--ml.Bdrsbstart\\(8px\\)--ml.Bg\\(\\$transparent-white-gradient\\) > div > div > div:nth-child(4) > button");
+			const likeButton = document.querySelector("#u-1804268477 > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > div > div > main > div > div > div.recsCardboard__cardsContainer.H\\(100\\%\\).Pos\\(r\\).Z\\(1\\) > div > div.Pos\\(a\\).B\\(0\\).Iso\\(i\\).W\\(100\\%\\).Start\\(0\\).End\\(0\\) > div > div.gamepad-button-wrapper.Mx\\(a\\).Fxs\\(0\\).Sq\\(70px\\).Sq\\(60px\\)--s.Bd.Bdrs\\(50\\%\\).Bdc\\(\\$c-ds-border-gamepad-like-default\\) > button");
 			likeButton.click();
 		} catch(er){
 
@@ -119,7 +119,7 @@ function trickTinder() {
 			thereIsMatch.click();
 		}
 	} else {
-		const dislikeButton = document.querySelector("#t1836739397 > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > div > main > div > div > div.Pos\\(f\\).W\\(100\\%\\).B\\(0\\).Z\\(1\\).Pe\\(n\\).Pos\\(a\\)--ml.Bdrsbend\\(8px\\)--ml.Bdrsbstart\\(8px\\)--ml.Bg\\(\\$transparent-white-gradient\\) > div > div > div:nth-child(2) > button");
+		const dislikeButton = document.querySelector("#u-1804268477 > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > div > div > main > div > div > div.recsCardboard__cardsContainer.H\\(100\\%\\).Pos\\(r\\).Z\\(1\\) > div > div.Pos\\(a\\).B\\(0\\).Iso\\(i\\).W\\(100\\%\\).Start\\(0\\).End\\(0\\) > div > div.gamepad-button-wrapper.Mx\\(a\\).Fxs\\(0\\).Sq\\(70px\\).Sq\\(60px\\)--s.Bd.Bdrs\\(50\\%\\).Bdc\\(\\$c-ds-border-gamepad-nope-default\\) > button");
 		dislikeButton.click();
 	}
 
